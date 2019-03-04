@@ -392,7 +392,8 @@ export class TradingTerminal extends React.Component<TradingTerminalProps, Tradi
 								currentPrice={this.state.currentPrice}
 								sessionMd={this.props.sessionMd}
 								isMarketOpen={this.props.isMarketOpen}
-							  orderFeePercent={this.props.constantsMap['ORDER_FEE_PERCENT']} />
+							  orderFeePercent={this.props.constantsMap['ORDER_FEE_PERCENT']}
+							  orderPriceWindow={this.props.constantsMap['ORDER_PRICE_WINDOW']} />
 						</div>
 
 						<div id="open-orders-container" className="ten wide column box">
