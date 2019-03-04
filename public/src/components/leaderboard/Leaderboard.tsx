@@ -83,7 +83,7 @@ export class Leaderboard extends React.Component<LeaderboardProps, LeaderboardSt
                 <td><strong>{entry.getUserName()}</strong></td>
                 <td><strong>{addCommas(entry.getCash())}</strong></td>
                 <td className={entry.getStockWorth() >= 0 ? "green" : "red"}><strong>{addCommas(entry.getStockWorth())}</strong></td>
-                <td className="green"><strong>{addCommas(entry.getTotalWorth())}</strong></td>
+                <td className={entry.getTotalWorth() >= 0 ? "green" : "red"}><strong>{addCommas(entry.getTotalWorth())}</strong></td>
             </tr>
         ));
 
