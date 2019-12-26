@@ -9,6 +9,7 @@ export interface LoginProps {
     // Passes response back to app for setting state
     loginSuccessHandler: (resp: LoginResponse) => void
     signUpRedirect: () => void
+    forgotpasswordRedirect:() =>void
 }
 //All Error handling setting localstorage happens here
 //the only thing passed back is the resp
@@ -49,6 +50,9 @@ export class Login extends React.Component<LoginProps, {}>{
                                 </div>
                             </h2>
                             <LoginForm loginSuccessHandler={this.loginSuccessHandler} />
+                            <div className="ui message">
+                                <a className="register-hover" onClick={this.props.forgotpasswordRedirect}>Forgot Password?</a>
+                            </div>
                             <div className="ui message">
                                 New to us? <a className="register-hover" onClick={this.props.signUpRedirect} >Register</a>
                             </div>

@@ -12,7 +12,7 @@ import { Login } from "./login/Login"
 import { Register } from "./register/Register"
 import { IntroScreen } from "./intro/IntroScreen";
 import { LoadingScreen } from "./common/LoadingScreen";
-
+import {Forgotpassword} from "./forgotpassword/forgotpassword";
 import { Navbar } from "./common/Navbar";
 import { Main } from "./Main";
 import { RegisterResponse } from "../../proto_build/actions/Register_pb";
@@ -22,6 +22,7 @@ const SIGNUP = 2;
 const MAIN = 3;
 const LOADING = 4;
 const SPLASH = 5;
+const FORGOTPASSWORD=6;
 
 interface AppState {
 	isLoading: boolean // Waiting for response from login
@@ -171,6 +172,10 @@ export class App extends React.Component<{}, AppState> {
 		window.history.replaceState({}, "Dalal Street | Register", "/register");
 		this.forceUpdate()
 	}
+	forgotpasswordRedirect = () =>{
+		window.history.replaceState({},"Dalal Street | Login ","/forgotpassword");
+		this.forceUpdate();
+	}
 	routeMe = () => {
 		const path = window.location.pathname
 		if (this.state.isLoading) {
@@ -185,6 +190,9 @@ export class App extends React.Component<{}, AppState> {
 		if (path == "/login") {
 			return LOGIN;
 		}
+		if(path == "/forgotpassword") {
+            return FORGOTPASSWORD;
+        }
 		//If render ever reaches here it means that login response was an error
 		//and it is loading hence has to be rerouted to /login and the login component
 		//has to be rendered
@@ -267,11 +275,14 @@ export class App extends React.Component<{}, AppState> {
 			case LOGIN:
 				return <Login loginSuccessHandler={this.parseLoginResponse}
 					signUpRedirect={this.signUpRedirect}
+					forgotpasswordRedirect={this.forgotpasswordRedirect}
 				/>;
 			case LOADING:
 				return <LoadingScreen />;
 			case SPLASH:
 				return <div id="intro-div"><IntroScreen /></div>;
+			case FORGOTPASSWORD:
+				return <Forgotpassword />	
 		}
 
 		// if (this.state.isLoggedIn) {

@@ -1,4 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
+import {ForgotPasswordRequest} from "../../../proto_build/actions/ForgotPassword_pb";
+import { DalalActionService } from "../../../proto_build/DalalMessage_pb_service";
 
 export interface FormState{
    email:string,
@@ -16,6 +18,29 @@ export class ForgotPasswordForm extends React.Component<any,FormState>{
             disabled:false,
             error:null
         }
+
+    }
+    handleSubmit = async () =>{
+       this.setState({
+         disabled:true
+       })
+
+       const forgotpasswordrequest=new ForgotPasswordRequest();
+       forgotpasswordrequest.setEmail(this.state.email);
+
+       try {
+        const resp = await DalalActionService.forgotpassword(forgotpasswordrequest);
+        // this.props.loginSuccessHandler(resp);
+    } catch (e) {
+        console.log(e);
+        this.setState({
+            error: e.isGrpcError ? "Unable to reach server. Please check your internet connection." : e.statusMessage,
+        });
+    }
+
+    this.setState({
+        disabled: false,
+    });
 
     }
 
@@ -38,7 +63,7 @@ export class ForgotPasswordForm extends React.Component<any,FormState>{
                         </div>
                         {this.state.disabled ?
                             <div className="ui fluid large teal submit disabled button">Submit</div> :
-                            <div className="ui fluid large teal submit button" >Submit</div>
+                            <div className="ui fluid large teal submit button" onClick={this.handleSubmit}>Submit</div>
                         }
                     </div>
                    
